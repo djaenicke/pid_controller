@@ -1,5 +1,7 @@
-#include "pid.h"
 #include <cmath>
+#include <cstdint>
+
+#include "pid.h"
 
 namespace pid {
 
