@@ -3,6 +3,12 @@
 
 namespace pid {
 
+typedef struct {
+  float kp;
+  float ki;
+  float kd;
+} Gains_T;
+
 class PID {
  private:
   float kp_;
@@ -13,9 +19,9 @@ class PID {
   float last_e_;
   float integral_;
  public:
-  PID(float kp, float ki, float kd, float dt, float tol = 0.0f);
+  PID(float dt, float tol = 0.0f);
   float Step(float sp, float fb, float max, float min);
-  void  Reset(void);
+  void Reset(Gains_T* gains);
 };
 
 }  // namespace pid

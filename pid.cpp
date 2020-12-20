@@ -5,10 +5,10 @@
 
 namespace pid {
 
-PID::PID(float kp, float ki, float kd, float dt, float tol) {
-  kp_  = kp;
-  ki_  = ki;
-  kd_  = kd;
+PID::PID(float dt, float tol) {
+  kp_  = 0.0f;
+  ki_  = 0.0f;
+  kd_  = 0.0f;
   dt_  = dt;
   tol_ = tol;
 
@@ -27,8 +27,8 @@ float PID::Step(float sp, float fb, float max, float min) {
     e = 0.0f;
   }
 
-  d = (e - last_e_)/dt_;
-  ti += (((e + last_e_)/2)*dt_); /* Trapezoidal integration */
+  d = (e - last_e_) / dt_;
+  ti += (((e + last_e_) / 2) * dt_); /* Trapezoidal integration */
 
   u = (kp_ * e) + (ki_ * integral_) + (kd_ * d);
 
@@ -52,7 +52,10 @@ float PID::Step(float sp, float fb, float max, float min) {
   return (u);
 }
 
-void PID::Reset(void) {
+void PID::Reset(Gains_T* gains) {
+  kp_ = gains->kp;
+  ki_ = gains->ki;
+  kd_ = gains->kd;
   last_e_ = 0.0f;
   integral_ = 0.0f;
 }
