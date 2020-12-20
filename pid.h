@@ -14,13 +14,12 @@ class PID {
   float kp_;
   float ki_;
   float kd_;
-  float dt_;
   float tol_; /* Tolerance */
   float last_e_;
   float integral_;
  public:
-  PID(float dt, float tol = 0.0f);
-  float Step(float sp, float fb, float max, float min);
+  PID(float tol = 0.0f);
+  float Step(float sp, float fb, float dt, float max, float min);
   void Reset(Gains_T* gains);
 };
 

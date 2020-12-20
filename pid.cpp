@@ -5,18 +5,17 @@
 
 namespace pid {
 
-PID::PID(float dt, float tol) {
+PID::PID(float tol) {
   kp_  = 0.0f;
   ki_  = 0.0f;
   kd_  = 0.0f;
-  dt_  = dt;
   tol_ = tol;
 
   last_e_ = 0.0f;
   integral_ = 0.0f;
 }
 
-float PID::Step(float sp, float fb, float max, float min) {
+float PID::Step(float sp, float fb, float dt, float max, float min) {
   float u, d;           /* actuator command, derivative  */
   float ti = integral_; /* temporary integral            */
   float e = sp - fb;    /* error = set point - feed back */
@@ -27,8 +26,8 @@ float PID::Step(float sp, float fb, float max, float min) {
     e = 0.0f;
   }
 
-  d = (e - last_e_) / dt_;
-  ti += (((e + last_e_) / 2) * dt_); /* Trapezoidal integration */
+  d = (e - last_e_) / dt;
+  ti += (((e + last_e_) / 2) * dt); /* Trapezoidal integration */
 
   u = (kp_ * e) + (ki_ * integral_) + (kd_ * d);
 
