@@ -1,15 +1,17 @@
 #ifndef PID_H_
 #define PID_H_
 
-namespace pid {
-
-typedef struct {
+namespace pid
+{
+typedef struct
+{
   float kp;
   float ki;
   float kd;
-} Gains_T;
+} Gains;
 
-class PID {
+class PID
+{
  private:
   float kp_;
   float ki_;
@@ -17,10 +19,11 @@ class PID {
   float tol_; /* Tolerance */
   float last_e_;
   float integral_;
+
  public:
   PID(float tol = 0.0f);
-  float Step(float sp, float fb, float dt, float max, float min);
-  void Reset(Gains_T* gains);
+  float step(float sp, float fb, float dt, float max, float min);
+  void reset(Gains* gains);
 };
 
 }  // namespace pid
